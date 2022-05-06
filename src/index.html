@@ -8,6 +8,124 @@
     <title>Virtual Keyboard</title>
 </head>
 <body>
+    <div class="wrapper">   
+        <div class="textarea">
+            <textarea name="text" id="text-area" autofocus></textarea>
+        </div>
+        <div class="key">
+            <div class="board">
+                <div class="board__line">
+                    <div class="board__line__key" data-code="Backquote" data-value="`">`
+                        <div class="board__line__key__sub" data-value="~">~</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit1" data-value="1">1
+                        <div class="board__line__key__sub" data-value="!">!</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit2" data-value="2">2
+                        <div class="board__line__key__sub" data-value="@">@</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit3" data-value="3">3
+                        <div class="board__line__key__sub" data-value="#">#</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit4" data-value="4">4
+                        <div class="board__line__key__sub" data-value="$">$</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit5" data-value="5">5
+                        <div class="board__line__key__sub" data-value="%">%</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit6" data-value="6">6
+                        <div class="board__line__key__sub" data-value="^">^</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit7" data-value="7">7
+                        <div class="board__line__key__sub" data-value="&">&</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit8" data-value="8">8
+                        <div class="board__line__key__sub" data-value="*">*</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit9" data-value="9">9
+                        <div class="board__line__key__sub" data-value="(">(</div>
+                    </div>
+                    <div class="board__line__key" data-code="Digit0" data-value="0">0
+                        <div class="board__line__key__sub" data-value=")">)</div>
+                    </div>
+                    <div class="board__line__key" data-code="Minus" data-value="-">-
+                        <div class="board__line__key__sub" data-value="_">_</div>
+                    </div>
+                    <div class="board__line__key" data-code="Equal" data-value="=">=
+                        <div class="board__line__key__sub" data-value="+">+</div>
+                    </div>
+                    <div class="board__line__key backspace" data-code="Backspace" data-value="Backspace">Backspace</div>
+                </div>
+                <div class="board__line">
+                    <div class="board__line__key tabulation" data-code="Tab" data-value="Tab">Tab</div>
+                    <div class="board__line__key" data-code="KeyQ" data-value="q">Q</div>
+                    <div class="board__line__key" data-code="KeyW" data-value="w">W</div>
+                    <div class="board__line__key" data-code="KeyE" data-value="e">E</div>
+                    <div class="board__line__key" data-code="KeyR" data-value="r">R</div>
+                    <div class="board__line__key" data-code="KeyT" data-value="t">T</div>
+                    <div class="board__line__key" data-code="KeyY" data-value="y">Y</div>
+                    <div class="board__line__key" data-code="KeyU" data-value="u">U</div>
+                    <div class="board__line__key" data-code="KeyI" data-value="i">I</div>
+                    <div class="board__line__key" data-code="KeyO" data-value="o">O</div>
+                    <div class="board__line__key" data-code="KeyP" data-value="p">P</div>
+                    <div class="board__line__key" data-code="BracketLeft" data-value="[">[</div>
+                    <div class="board__line__key" data-code="BracketRight" data-value="]">]</div>
+                    <div class="board__line__key" data-code="Backslash" data-value="\">\
+                        <div class="board__line__key__sub" data-value="_">|</div>
+                    </div>
+                    <div class="board__line__key delete" data-code="Delete" data-value="Delete">Del</div>
+                </div>
+                <div class="board__line">
+                    <div class="board__line__key" id="caps-lock" data-code="CapsLock" data-value="CapsLock">Caps&nbsp;Lock</div>
+                    <div class="board__line__key" data-code="KeyA" data-value="a">A</div>
+                    <div class="board__line__key" data-code="KeyS" data-value="s">S</div>
+                    <div class="board__line__key" data-code="KeyD" data-value="d">D</div>
+                    <div class="board__line__key" data-code="KeyF" data-value="f">F</div>
+                    <div class="board__line__key" data-code="KeyG" data-value="g">G</div>
+                    <div class="board__line__key" data-code="KeyH" data-value="h">H</div>
+                    <div class="board__line__key" data-code="KeyJ" data-value="j">J</div>
+                    <div class="board__line__key" data-code="KeyK" data-value="k">K</div>
+                    <div class="board__line__key" data-code="KeyL" data-value="l">L</div>
+                    <div class="board__line__key" data-code="Semicolon" data-value=";">;</div>
+                    <div class="board__line__key" data-code="Quote" data-value="'">'</div>
+                    <div class="board__line__key enter" data-code="Enter" data-value="Enter">&#8629;</div>
+                </div>
+                <div class="board__line">
+                    <div class="board__line__key shift" data-code="ShiftLeft" data-value="Shift">Shift</div>
+                    <div class="board__line__key" data-code="IntlBackslash" data-value="\">\</div>
+                    <div class="board__line__key" data-code="KeyZ" data-value="z">Z</div>
+                    <div class="board__line__key" data-code="KeyX" data-value="x">X</div>
+                    <div class="board__line__key" data-code="KeyC" data-value="c">C</div>
+                    <div class="board__line__key" data-code="KeyV" data-value="v">V</div>
+                    <div class="board__line__key" data-code="KeyB" data-value="b">B</div>
+                    <div class="board__line__key" data-code="KeyN" data-value="n">N</div>
+                    <div class="board__line__key" data-code="KeyM" data-value="m">M</div>
+                    <div class="board__line__key" data-code="Comma" data-value=",">,</div>
+                    <div class="board__line__key" data-code="Period" data-value=".">.</div>
+                    <div class="board__line__key" data-code="Slash" data-value="/">/</div>
+                    <div class="board__line__key shift" data-code="ShiftRight" data-value="Shift">Shift</div>
+                </div>
+                <div class="board__line">
+                    <div class="board__line__key control" data-code="ControlLeft" data-value="Control">Ctrl</div>
+                    <div class="board__line__key win" data-code="MetaLeft" data-value="Meta">Win</div>
+                    <div class="board__line__key alt" data-code="AltLeft" data-value="Alt">Alt</div>
+                    <div class="board__line__key space" data-code="Space" data-value=" "></div>
+                    <div class="board__line__key alt" data-code="AltRight" data-value="Alt">Alt</div>
+                    <div class="board__line__key control" data-code="ControlRight" data-value="Control">Ctrl</div>
+                    <div class="board__line__key__arrow">
+                        <div class="board__line__key__arrow__start">
+                            <div class="board__line__key board__line__key__arrow__start__up" data-code="ArrowUp" data-value="ArrowUp">&#9650;</div>
+                        </div>
+                        <div class="board__line__key__arrow__end">
+                            <div class="board__line__key board__line__key__arrow__end__left" data-code="ArrowLeft" data-value="ArrowLeft">&#9668;</div>
+                            <div class="board__line__key board__line__key__arrow__end__down" data-code="ArrowDown" data-value="ArrowDown">&#9660;</div>
+                            <div class="board__line__key board__line__key__arrow__end__right" data-code="ArrowRight" data-value="ArrowRight">&#9658;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

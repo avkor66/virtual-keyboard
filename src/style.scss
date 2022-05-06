@@ -1,0 +1,150 @@
+$width-key: 100%;
+$height-board: 45vh;
+$height-board-line: 9vh;
+$key-size: 6vh;
+
+@mixin arrow {
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: #000 solid 2px;
+  background-color: rgb(38, 38, 38);
+  height: 3vh;
+  width: $key-size;
+  &:hover {
+    background-color: rgb(70, 70, 70);
+  }
+}
+body {
+  font-family: Arial, Helvetica;
+  font-weight: 300;
+}
+.wrapper {
+  height: 100vh;
+  width: 70vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .textarea {
+    width: $width-key;
+    margin: 0 auto;
+    max-width: 1400px;
+    textarea {
+      font-size: 3rem;
+      width: 100%;
+      height: 20vh;
+      box-sizing: border-box;
+    }
+  }
+  .key {
+    font-size: 2.1rem;
+    margin: 0 auto;
+    width: $width-key;
+    height: 40vh;
+    max-width: 1400px;
+    .board {
+      height: 88%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      background-color: blanchedalmond;
+      &__line {
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        justify-content: space-around;
+        height: calc(100%/5);
+        padding-left: 5px;
+        padding-right: 5px;
+        gap: 10px;
+        &__key {
+          cursor: pointer;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: $key-size;
+          width: $key-size;
+          background-color: rgb(38, 38, 38);
+          color: #FFF;
+          border-radius: 10px;
+          border: #000 solid 2px;
+          &__sub {
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            color: #FFF;
+            font-size: 1.4rem;
+          }
+          &__arrow {
+            font-size: 1rem;
+            color: #FFF;
+            width: auto;
+            display: flex;
+            flex-direction: column;
+            &__start {
+              margin: 0 auto;
+              display: flex;
+              justify-content: center;
+              &__up {
+                @include arrow;
+                border-end-end-radius: 0;
+                border-end-start-radius: 0;
+              }
+            }
+            &__end {
+              display: flex;
+              justify-content: center;
+              gap: 5px;
+              &__left {
+                @include arrow;
+              }
+              &__right {
+                @include arrow;
+              }
+              &__down {
+                @include arrow;
+                border-start-start-radius: 0;
+                border-start-end-radius: 0;
+              }
+            }
+          }
+          &:hover {
+            background-color: rgb(70, 70, 70);
+          }
+          &.press {
+            background-color: #0969da;
+          }
+        }
+        &__key.backspace {
+          flex-grow: 1;
+          min-width: 175px;
+        }
+        &__key.tabulation {
+          flex-grow: 1;
+        }
+        &__key.enter {
+          flex-grow: 3;
+        }
+        &__key.space {
+          flex-grow: 10;
+        }
+        &__key.shift {
+          flex-grow: 1;
+        }
+        &__key.control {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+}
+#caps-lock {
+  min-width: 165px;
+  flex-grow: 1;
+}
