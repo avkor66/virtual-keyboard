@@ -104,7 +104,6 @@ class Keyboard {
         let posY = 0
         let temp = start -1
         let flag = 0
-        console.log(this.textArea.value[temp]);
         if(start < text[0].length+1) {
           this.textArea.selectionEnd = 0
           this.textArea.selectionStart = 0
@@ -119,8 +118,6 @@ class Keyboard {
             temp--
           }
           if(text[posY-1].length <= posX-1) {
-            console.log(text[posY].length);
-            console.log(posX-1);
             this.textArea.selectionStart = start - (posX + 1)
           } else {
             this.textArea.selectionStart = start - (posX + 1) - (text[posY-1].length - posX)
@@ -131,12 +128,38 @@ class Keyboard {
         this.textArea.selectionEnd = 0
         this.textArea.selectionStart = 0
       }
-
     }
     arrowDown(event) {
       const text = this.textArea.value.split('\n')
       if (text.length > 1) {
-
+        let start = this.textArea.selectionStart
+        let end = this.textArea.selectionEnd
+        console.log(end);
+        console.log(start);
+        let posX = 0
+        let posY = 0
+        let temp = 0
+        let flag = 0
+        if(end > (this.textArea.value.length - text[text.length-1].length - 1)) {
+          this.textArea.selectionEnd = this.textArea.value.length
+          this.textArea.selectionStart = this.textArea.value.length
+        } else {
+          while (temp < end) {
+            posX++
+            if (this.textArea.value[flag] === '\n') {
+              posY++
+              posX = 0
+            }
+            flag++
+            temp++
+          }
+          if(text[posY+1].length <= posX) {
+            this.textArea.selectionStart = start + text[posY+1].length + (text[posY].length - posX) + 1
+          } else {
+            this.textArea.selectionStart = start + posX + (text[posY].length - posX) + 1
+          }
+          this.textArea.selectionEnd = this.textArea.selectionStart
+        }
       } else {
         this.textArea.selectionEnd = this.textArea.value.length
         this.textArea.selectionStart = this.textArea.value.length
