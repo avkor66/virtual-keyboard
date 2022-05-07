@@ -4,6 +4,8 @@ class Keyboard {
         this.language = language
         this.capsLock = null
         this.shiftClick = false
+        this.controlClick = false
+        this.altClick = false
         this.textArea = document.getElementById('text-area')
     }
     
@@ -97,11 +99,39 @@ class Keyboard {
     arrowUp(event) {
       const text = this.textArea.value.split('\n')
       if (text.length > 1) {
-
+        let start = this.textArea.selectionStart
+        let posX = 0
+        let posY = 0
+        let temp = start -1
+        let flag = 0
+        console.log(this.textArea.value[temp]);
+        if(start < text[0].length+1) {
+          this.textArea.selectionEnd = 0
+          this.textArea.selectionStart = 0
+        } else {
+          while (temp) {
+            flag++
+            posX++
+            if (this.textArea.value[flag] === '\n') {
+              posY++
+              posX = 0
+            }
+            temp--
+          }
+          if(text[posY-1].length <= posX-1) {
+            console.log(text[posY].length);
+            console.log(posX-1);
+            this.textArea.selectionStart = start - (posX + 1)
+          } else {
+            this.textArea.selectionStart = start - (posX + 1) - (text[posY-1].length - posX)
+          }
+          this.textArea.selectionEnd = this.textArea.selectionStart
+        }
       } else {
         this.textArea.selectionEnd = 0
         this.textArea.selectionStart = 0
       }
+
     }
     arrowDown(event) {
       const text = this.textArea.value.split('\n')
@@ -162,120 +192,184 @@ class Keyboard {
       }
 
     }
+    loop(){}
     listener() {
-        const key = document.querySelectorAll('.board__line__key')
-        key.forEach(item => {
-            item.addEventListener('click', event => {
+      const key = document.querySelectorAll('.board__line__key')
+      key.forEach(item => {
+        item.addEventListener('click', event => {
+          this.textArea.focus()
+          const add = event.currentTarget
+          const ev = event.target.dataset 
 
-              this.textArea.focus()
-              const add = event.currentTarget
-              const ev = event.target.dataset 
-
-              if (ev.code === 'CapsLock') {                
-                if(this.capsLock) {
-                  this.capsLock = false
-                  document.querySelector('#caps-lock').classList.remove('press')
-                  console.log(false);
-                } else {
-                  this.capsLock = true
-                  document.querySelector('#caps-lock').classList.add('press')
-                  console.log(true);
-                }
-              } else if (ev.code === 'ShiftLeft' || ev.code === 'ShiftRight') {
-                if(this.shiftClick) {
+          switch (ev.value) {
+            case 'CapsLock':
+              if(this.capsLock) {
+                this.capsLock = false
+                document.querySelector('#caps-lock').classList.remove('press')
+              } else {
+                this.capsLock = true
+                document.querySelector('#caps-lock').classList.add('press')
+              }                  
+              break;
+            case 'Shift':
+              if(this.shiftClick) {
+                if (add.classList.contains('press')) {
                   document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-                  // event.target.classList.remove('press')
                   this.shiftClick = false
                 } else {
-                  if(!event.target.classList.contains('press')) {
-                    document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-                    event.target.classList.add('press')
-                  }
+                  document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
+                  add.classList.add('press')
                   this.shiftClick = true
                 }
               } else {
-                if (this.shiftClick) {
-                  if (event.target.childNodes[1]) {
-                    this.shiftClick = false
-                    this.elementSwitch({key:event.target.childNodes[1].innerText})
-                    document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-                  } else {
-                    this.elementSwitch(ev)
-                    this.shiftClick = false
-                    document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-                  }
-                } else {
-                  this.elementSwitch(ev)
-                }
+                this.shiftClick = true
+                add.classList.add('press')                  
+              }
+              //смена раскладки
+              if (this.altClick) {
                 add.classList.add('press')
                 setTimeout(() => {
-                  add.classList.remove('press')
+                  document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
+                  document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
+                  document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
                 }, 100);
-              }
-              if(ev.value === 'Alt') {
-                if (this.shiftClick) {
-                  console.log('смена раскладки');
+                this.altClick = false
+                this.shiftClick = false
+                this.controlClick = false
+                console.log('смена раскладки');
+              }                  
+              break
+            case 'Control':
+              if(this.controlClick) {
+                if (add.classList.contains('press')) {
+                  document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
+                  this.controlClick = false
+                } else {
+                  document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
                   add.classList.add('press')
-                  setTimeout(() => {
-                    document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-                    document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
-                  }, 100);
-                  this.shiftClick = false
+                  this.controlClick = true
                 }
+              } else {
+                this.controlClick = true
+                add.classList.add('press')                  
               }
-    
-            })
-        })        
-        document.addEventListener('keydown', event => {
-          if (this.capsLock === null) this.getCapsLock(event)
-          event.preventDefault()
-          if(event.key === 'Shift') this.shiftClick = true
-          if (event.getModifierState('CapsLock')) {
-            const cl = document.querySelector('#caps-lock')
-            if (!cl.classList.contains('press')) {
-              cl.classList.add('press')
-            }
-            this.capsLock = true
-          } 
-          this.elementSwitch(event)
+              break
+            case 'Alt':
+              if(this.altClick) {
+                if (add.classList.contains('press')) {
+                  document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
+                  this.altClick = false
+                } else {
+                  document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
+                  add.classList.add('press')
+                  this.altClick = true
+                }
+              } else {
+                this.altClick = true
+                add.classList.add('press')                  
+              }
+              //смена раскладки
+              if (this.shiftClick) {
+                add.classList.add('press')
+                setTimeout(() => {
+                  document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
+                  document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
+                  document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
+                }, 100);
+                this.shiftClick = false
+                this.altClick = false
+                this.controlClick = false
+                console.log('смена раскладки');
+              }
+              break
+            default:
+              if (this.shiftClick) {
+                if (event.target.childNodes[1]) {
+                  this.shiftClick = false
+                  this.elementSwitch({key:event.target.childNodes[1].innerText})
+                  document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
+                } else {
+                  this.elementSwitch(ev)
+                  this.shiftClick = false
+                  document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
+                }
+              } else {
+                this.elementSwitch(ev)
+              }
+              add.classList.add('press')
+              setTimeout(() => {
+                add.classList.remove('press')
+              }, 100);
+              break;
+          }
+        })
+      })
+      document.addEventListener('keydown', event => {
+        if (this.capsLock === null) this.getCapsLock(event)
+        event.preventDefault()
 
+        if (event.getModifierState('CapsLock')) {
+          const cl = document.querySelector('#caps-lock')
+          if (!cl.classList.contains('press')) {
+            cl.classList.add('press')
+          }
+          this.capsLock = true
+        } 
+        this.elementSwitch(event)
+        
+        document.querySelectorAll('.board__line__key').forEach(item => (item.dataset.code === event.code) ? item.classList.add('press') : this.loop())
+        
+        if(event.key === 'Control') {
+          this.controlClick = true
+        }
+
+        if(event.key === 'Shift') {
+          this.shiftClick = true
+          if (this.altClick) {
+            console.log('смена раскладки');
+            this.altClick = false
+            this.shiftClick = false
+          } 
+        }
+        
+        if(event.key === 'Alt') {
+          this.altClick = true
+          if (this.shiftClick) {
+            console.log('смена раскладки');
+            this.altClick = false
+            this.shiftClick = false
+          } 
+        }
+      })
+
+      document.addEventListener('keyup', event => {
+        if(event.key === 'Shift') {
+          this.shiftClick = false
+          document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
+        } 
+        if(event.key === 'Alt') {
+          this.altClick = false
+          document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
+        } 
+        if(event.key === 'Control') {
+          this.controlClick = false
+          document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
+        } 
+        if (event.code == 'CapsLock') {
+          const cl = document.querySelector('#caps-lock')
+          if (cl.classList.contains('press')) {
+            cl.classList.remove('press')
+          }
+          this.capsLock = false
+        } else {
           document.querySelectorAll('.board__line__key').forEach(item => {
+            if (event.code == 'CapsLock') return
             if (item.dataset.code === event.code) {
-              item.classList.add('press')
+              item.classList.remove('press')
             }
           })
-          if(event.key === 'Alt') {
-            if (this.shiftClick) {
-              document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-              document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
-              console.log('смена раскладки');
-            }
-          }
-        })
-
-        document.addEventListener('keyup', event => {
-          
-          if(event.key === 'Shift') {
-            this.shiftClick = false
-            document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-          } 
-
-          if (event.code == 'CapsLock') {
-            const cl = document.querySelector('#caps-lock')
-            if (cl.classList.contains('press')) {
-              cl.classList.remove('press')
-            }
-            this.capsLock = false
-          } else {
-            document.querySelectorAll('.board__line__key').forEach(item => {
-              if (event.code == 'CapsLock') return
-              if (item.dataset.code === event.code) {
-                item.classList.remove('press')
-              }
-            })
-          }
-
-        })
+        }
+      })
     }
     getCapsLock(data){
       if(data.shiftKey || data.which < 41) return
