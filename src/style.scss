@@ -24,7 +24,7 @@ body {
 }
 .wrapper {
   height: 100vh;
-  width: 70vw;
+  width: 82vw;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -52,7 +52,7 @@ body {
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      background-color: blanchedalmond;
+      // background-color: blanchedalmond;
       &__line {
         display: flex;
         align-items: center;
@@ -123,10 +123,12 @@ body {
         }
         &__key.backspace {
           flex-grow: 1;
-          min-width: 175px;
+          min-width: 145px;
+          font-size: 1.8rem;
         }
         &__key.tabulation {
           flex-grow: 1;
+          font-size: 1.8rem;
         }
         &__key.enter {
           flex-grow: 3;
@@ -136,15 +138,28 @@ body {
         }
         &__key.shift {
           flex-grow: 1;
+          font-size: 1.8rem;
         }
         &__key.control {
+          // flex-grow: 1;
+          font-size: 1.8rem;
+        }
+        &__key.delete {
+          font-size: 1.8rem;
+        }
+        &__key.meta {
           flex-grow: 1;
+          font-size: 1.8rem;
+        }
+        &__key.alt {
+          font-size: 1.8rem;
         }
       }
     }
   }
 }
 #caps-lock {
-  min-width: 165px;
+  min-width: 140px;
+  font-size: 1.8rem;
   flex-grow: 1;
 }

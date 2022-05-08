@@ -1,11 +1,12 @@
 class Keyboard {
     
-    constructor(language) {
-        this.language = language
+    constructor() {
+        this.language = document.cookie
         this.capsLock = null
         this.shiftClick = false
         this.controlClick = false
         this.altClick = false
+        this.metaClick = false
         this.textArea = document.getElementById('text-area')
     }
     
@@ -96,7 +97,7 @@ class Keyboard {
         }          
       }
     }
-    arrowUp(event) {
+    arrowUp() {
       const text = this.textArea.value.split('\n')
       if (text.length > 1) {
         let start = this.textArea.selectionStart
@@ -129,7 +130,7 @@ class Keyboard {
         this.textArea.selectionStart = 0
       }
     }
-    arrowDown(event) {
+    arrowDown() {
       const text = this.textArea.value.split('\n')
       if (text.length > 1) {
         let start = this.textArea.selectionStart
@@ -255,11 +256,19 @@ class Keyboard {
                   document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
                   document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
                   document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
+                  document.querySelectorAll('.meta').forEach(item => item.classList.remove('press'))
                 }, 100);
                 this.altClick = false
                 this.shiftClick = false
                 this.controlClick = false
                 console.log('смена раскладки');
+                if (this.language === 'lang=en') {
+                  this.language = 'lang=ru'
+                  document.cookie = "lang=ru"
+                } else {
+                  this.language = 'lang=en'
+                  document.cookie = "lang=en"
+                }    
               }                  
               break
             case 'Control':
@@ -274,6 +283,21 @@ class Keyboard {
                 }
               } else {
                 this.controlClick = true
+                add.classList.add('press')                  
+              }
+              break
+            case 'Meta':
+              if(this.metaClick) {
+                if (add.classList.contains('press')) {
+                  document.querySelectorAll('.meta').forEach(item => item.classList.remove('press'))
+                  this.metaClick = false
+                } else {
+                  document.querySelectorAll('.meta').forEach(item => item.classList.remove('press'))
+                  add.classList.add('press')
+                  this.metaClick = true
+                }
+              } else {
+                this.metaClick = true
                 add.classList.add('press')                  
               }
               break
@@ -298,11 +322,19 @@ class Keyboard {
                   document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
                   document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
                   document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
+                  document.querySelectorAll('.meta').forEach(item => item.classList.remove('press'))
                 }, 100);
                 this.shiftClick = false
                 this.altClick = false
                 this.controlClick = false
                 console.log('смена раскладки');
+                if (this.language === 'lang=en') {
+                  this.language = 'lang=ru'
+                  document.cookie = "lang=ru"
+                } else {
+                  this.language = 'lang=en'
+                  document.cookie = "lang=en"
+                }    
               }
               break
             default:
@@ -323,6 +355,9 @@ class Keyboard {
               setTimeout(() => {
                 add.classList.remove('press')
               }, 100);
+              document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
+              document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
+              document.querySelectorAll('.meta').forEach(item => item.classList.remove('press'))
               break;
           }
         })
@@ -350,6 +385,14 @@ class Keyboard {
           this.shiftClick = true
           if (this.altClick) {
             console.log('смена раскладки');
+            if (this.language === 'lang=en') {
+              this.language = 'lang=ru'
+              document.cookie = "lang=ru"
+            } else {
+              this.language = 'lang=en'
+              document.cookie = "lang=en"
+            }
+
             this.altClick = false
             this.shiftClick = false
           } 
@@ -359,6 +402,13 @@ class Keyboard {
           this.altClick = true
           if (this.shiftClick) {
             console.log('смена раскладки');
+            if (this.language === 'lang=en') {
+              this.language = 'lang=ru'
+              document.cookie = "lang=ru"
+            } else {
+              this.language = 'lang=en'
+              document.cookie = "lang=en"
+            }
             this.altClick = false
             this.shiftClick = false
           } 
@@ -409,5 +459,15 @@ class Keyboard {
 
 }
 
+if (!document.cookie) document.cookie = 'lang=en'
+
+if (document.cookie === 'lang=en') {
+  console.log('en');
+} else {
+  console.log('rus');
+}
 const keyboard = new Keyboard()
-keyboard.listener()
+document.addEventListener('DOMContentLoaded', () => {
+  keyboard.listener()
+})
+

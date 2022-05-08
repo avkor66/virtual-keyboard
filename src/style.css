@@ -5,7 +5,7 @@ body {
 
 .wrapper {
   height: 100vh;
-  width: 70vw;
+  width: 82vw;
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -54,7 +54,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: blanchedalmond;
 }
 
 .wrapper .key .board__line {
@@ -247,13 +246,15 @@ body {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  min-width: 175px;
+  min-width: 145px;
+  font-size: 1.8rem;
 }
 
 .wrapper .key .board__line__key.tabulation {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  font-size: 1.8rem;
 }
 
 .wrapper .key .board__line__key.enter {
@@ -272,16 +273,31 @@ body {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  font-size: 1.8rem;
 }
 
 .wrapper .key .board__line__key.control {
+  font-size: 1.8rem;
+}
+
+.wrapper .key .board__line__key.delete {
+  font-size: 1.8rem;
+}
+
+.wrapper .key .board__line__key.meta {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  font-size: 1.8rem;
+}
+
+.wrapper .key .board__line__key.alt {
+  font-size: 1.8rem;
 }
 
 #caps-lock {
-  min-width: 165px;
+  min-width: 140px;
+  font-size: 1.8rem;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
