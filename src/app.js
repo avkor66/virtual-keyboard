@@ -1,13 +1,13 @@
 class Keyboard {
     
     constructor() {
-        this.language = document.cookie
-        this.capsLock = null
-        this.shiftClick = false
-        this.controlClick = false
-        this.altClick = false
-        this.metaClick = false
-        this.textArea = document.getElementById('text-area')
+      this.capsLock = null
+      this.shiftClick = false
+      this.controlClick = false
+      this.altClick = false
+      this.metaClick = false
+      this.language = document.cookie
+      this.textArea 
     }
     
 
@@ -269,6 +269,8 @@ class Keyboard {
                   this.language = 'lang=en'
                   document.cookie = "lang=en"
                 }    
+                this.render()
+
               }                  
               break
             case 'Control':
@@ -335,6 +337,8 @@ class Keyboard {
                   this.language = 'lang=en'
                   document.cookie = "lang=en"
                 }    
+                this.render()
+
               }
               break
             default:
@@ -380,6 +384,9 @@ class Keyboard {
         if(event.key === 'Control') {
           this.controlClick = true
         }
+        if(event.key === 'Meta') {
+          this.metaClick = true
+        }
 
         if(event.key === 'Shift') {
           this.shiftClick = true
@@ -392,6 +399,7 @@ class Keyboard {
               this.language = 'lang=en'
               document.cookie = "lang=en"
             }
+            this.render()
 
             this.altClick = false
             this.shiftClick = false
@@ -409,6 +417,7 @@ class Keyboard {
               this.language = 'lang=en'
               document.cookie = "lang=en"
             }
+            this.render()
             this.altClick = false
             this.shiftClick = false
           } 
@@ -416,19 +425,21 @@ class Keyboard {
       })
 
       document.addEventListener('keyup', event => {
+        event.preventDefault()
+
         if(event.key === 'Shift') {
           this.shiftClick = false
           document.querySelectorAll('.shift').forEach(item => item.classList.remove('press'))
-        } 
-        if(event.key === 'Alt') {
+        } else if(event.key === 'Meta') {
+          this.metaClick = false
+          document.querySelectorAll('.meta').forEach(item => item.classList.remove('press'))
+        } else if(event.key === 'Alt') {
           this.altClick = false
           document.querySelectorAll('.alt').forEach(item => item.classList.remove('press'))
-        } 
-        if(event.key === 'Control') {
+        } else if(event.key === 'Control') {
           this.controlClick = false
           document.querySelectorAll('.control').forEach(item => item.classList.remove('press'))
-        } 
-        if (event.code == 'CapsLock') {
+        } else if (event.key === 'CapsLock') {
           const cl = document.querySelector('#caps-lock')
           if (cl.classList.contains('press')) {
             cl.classList.remove('press')
@@ -456,7 +467,286 @@ class Keyboard {
         this.capsLock = false
       } 
     }
+    render() {
 
+      const templateEn = `
+      <div class="board__line">
+          <div class="board__line__key" data-code="Backquote" data-value="§">§
+              <div class="board__line__key__sub" data-value="±">&plusmn;</div>
+          </div>
+          <div class="board__line__key" data-code="Digit1" data-value="1">1
+              <div class="board__line__key__sub" data-value="!">!</div>
+          </div>
+          <div class="board__line__key" data-code="Digit2" data-value="2">2
+              <div class="board__line__key__sub" data-value="@">@</div>
+          </div>
+          <div class="board__line__key" data-code="Digit3" data-value="3">3
+              <div class="board__line__key__sub" data-value="#">#</div>
+          </div>
+          <div class="board__line__key" data-code="Digit4" data-value="4">4
+              <div class="board__line__key__sub" data-value="$">$</div>
+          </div>
+          <div class="board__line__key" data-code="Digit5" data-value="5">5
+              <div class="board__line__key__sub" data-value="%">%</div>
+          </div>
+          <div class="board__line__key" data-code="Digit6" data-value="6">6
+              <div class="board__line__key__sub" data-value="^">^</div>
+          </div>
+          <div class="board__line__key" data-code="Digit7" data-value="7">7
+              <div class="board__line__key__sub" data-value="&">&</div>
+          </div>
+          <div class="board__line__key" data-code="Digit8" data-value="8">8
+              <div class="board__line__key__sub" data-value="*">*</div>
+          </div>
+          <div class="board__line__key" data-code="Digit9" data-value="9">9
+              <div class="board__line__key__sub" data-value="(">(</div>
+          </div>
+          <div class="board__line__key" data-code="Digit0" data-value="0">0
+              <div class="board__line__key__sub" data-value=")">)</div>
+          </div>
+          <div class="board__line__key" data-code="Minus" data-value="-">-
+              <div class="board__line__key__sub" data-value="_">_</div>
+          </div>
+          <div class="board__line__key" data-code="Equal" data-value="=">=
+              <div class="board__line__key__sub" data-value="+">+</div>
+          </div>
+          <div class="board__line__key backspace" data-code="Backspace" data-value="Backspace">Backspace</div>
+      </div>
+      <div class="board__line">
+          <div class="board__line__key tabulation" data-code="Tab" data-value="Tab">Tab</div>
+          <div class="board__line__key" data-code="KeyQ" data-value="q">Q</div>
+          <div class="board__line__key" data-code="KeyW" data-value="w">W</div>
+          <div class="board__line__key" data-code="KeyE" data-value="e">E</div>
+          <div class="board__line__key" data-code="KeyR" data-value="r">R</div>
+          <div class="board__line__key" data-code="KeyT" data-value="t">T</div>
+          <div class="board__line__key" data-code="KeyY" data-value="y">Y</div>
+          <div class="board__line__key" data-code="KeyU" data-value="u">U</div>
+          <div class="board__line__key" data-code="KeyI" data-value="i">I</div>
+          <div class="board__line__key" data-code="KeyO" data-value="o">O</div>
+          <div class="board__line__key" data-code="KeyP" data-value="p">P</div>
+          <div class="board__line__key" data-code="BracketLeft" data-value="[">[
+            <div class="board__line__key__sub" data-value="{">{</div>          
+            </div>
+          <div class="board__line__key" data-code="BracketRight" data-value="]">]
+            <div class="board__line__key__sub" data-value="}">}</div>          
+          </div>
+          <div class="board__line__key delete" data-code="Delete" data-value="Delete">Del</div>
+      </div>
+      <div class="board__line">
+          <div class="board__line__key" id="caps-lock" data-code="CapsLock" data-value="CapsLock">Caps&nbsp;Lock</div>
+          <div class="board__line__key" data-code="KeyA" data-value="a">A</div>
+          <div class="board__line__key" data-code="KeyS" data-value="s">S</div>
+          <div class="board__line__key" data-code="KeyD" data-value="d">D</div>
+          <div class="board__line__key" data-code="KeyF" data-value="f">F</div>
+          <div class="board__line__key" data-code="KeyG" data-value="g">G</div>
+          <div class="board__line__key" data-code="KeyH" data-value="h">H</div>
+          <div class="board__line__key" data-code="KeyJ" data-value="j">J</div>
+          <div class="board__line__key" data-code="KeyK" data-value="k">K</div>
+          <div class="board__line__key" data-code="KeyL" data-value="l">L</div>
+          <div class="board__line__key" data-code="Semicolon" data-value=";">;
+              <div class="board__line__key__sub" data-value=":">:</div>
+          </div>
+          <div class="board__line__key" data-code="Quote" data-value="'">&prime;
+              <div class="board__line__key__sub" data-value='"'>&quot;</div>
+          </div>
+          <div class="board__line__key" data-code="Backslash" data-value="\\">\\
+              <div class="board__line__key__sub" data-value="|">|</div>
+          </div>
+          <div class="board__line__key enter" data-code="Enter" data-value="Enter">&#8629;</div>
+      </div>
+      <div class="board__line">
+          <div class="board__line__key shift" data-code="ShiftLeft" data-value="Shift">Shift</div>
+          <div class="board__line__key" data-code="IntlBackslash" data-value="\`">&#96;
+              <div class="board__line__key__sub" data-value="~">~</div>
+          </div>
+          <div class="board__line__key" data-code="KeyZ" data-value="z">Z</div>
+          <div class="board__line__key" data-code="KeyX" data-value="x">X</div>
+          <div class="board__line__key" data-code="KeyC" data-value="c">C</div>
+          <div class="board__line__key" data-code="KeyV" data-value="v">V</div>
+          <div class="board__line__key" data-code="KeyB" data-value="b">B</div>
+          <div class="board__line__key" data-code="KeyN" data-value="n">N</div>
+          <div class="board__line__key" data-code="KeyM" data-value="m">M</div>
+          <div class="board__line__key" data-code="Comma" data-value=",">,
+              <div class="board__line__key__sub" data-value="<">&lt;</div>
+          </div>
+          <div class="board__line__key" data-code="Period" data-value=".">.
+              <div class="board__line__key__sub" data-value=">">&gt;</div>
+          </div>
+          <div class="board__line__key" data-code="Slash" data-value="/">/
+              <div class="board__line__key__sub" data-value="?">?</div>
+          </div>
+          <div class="board__line__key shift" data-code="ShiftRight" data-value="Shift">Shift</div>
+      </div>
+      <div class="board__line">
+          <div class="board__line__key control" data-code="ControlLeft" data-value="Control">Ctrl</div>
+          <div class="board__line__key alt" data-code="AltLeft" data-value="Alt">Alt</div>
+          <div class="board__line__key meta" data-code="MetaLeft" data-value="Meta">Command</div>
+          <div class="board__line__key space" data-code="Space" data-value=" "></div>
+          <div class="board__line__key meta" data-code="MetaRight" data-value="Meta">Command</div>
+          <div class="board__line__key alt" data-code="AltRight" data-value="Alt">Alt</div>
+          <div class="board__line__key__arrow">
+              <div class="board__line__key__arrow__start">
+                  <div class="board__line__key board__line__key__arrow__start__up" data-code="ArrowUp" data-value="ArrowUp">&#9650;</div>
+              </div>
+              <div class="board__line__key__arrow__end">
+                  <div class="board__line__key board__line__key__arrow__end__left" data-code="ArrowLeft" data-value="ArrowLeft">&#9668;</div>
+                  <div class="board__line__key board__line__key__arrow__end__down" data-code="ArrowDown" data-value="ArrowDown">&#9660;</div>
+                  <div class="board__line__key board__line__key__arrow__end__right" data-code="ArrowRight" data-value="ArrowRight">&#9658;</div>
+              </div>
+          </div>
+      </div>
+      `
+      const templateRu = `
+              <div class="board__line">
+                  <div class="board__line__key" data-code="Backquote" data-value=">">&gt;
+                      <div class="board__line__key__sub" data-value="<">&lt;</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit1" data-value="1">1
+                      <div class="board__line__key__sub" data-value="!">!</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit2" data-value="2">2
+                      <div class="board__line__key__sub" data-value='"'>&quot;</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit3" data-value="3">3
+                      <div class="board__line__key__sub" data-value="№">№</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit4" data-value="4">4
+                      <div class="board__line__key__sub" data-value="%">%</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit5" data-value="5">5
+                      <div class="board__line__key__sub" data-value=":">:</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit6" data-value="6">6
+                      <div class="board__line__key__sub" data-value=",">,</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit7" data-value="7">7
+                      <div class="board__line__key__sub" data-value=".">.</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit8" data-value="8">8
+                      <div class="board__line__key__sub" data-value=";">;</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit9" data-value="9">9
+                      <div class="board__line__key__sub" data-value="(">(</div>
+                  </div>
+                  <div class="board__line__key" data-code="Digit0" data-value="0">0
+                      <div class="board__line__key__sub" data-value=")">)</div>
+                  </div>
+                  <div class="board__line__key" data-code="Minus" data-value="-">-
+                      <div class="board__line__key__sub" data-value="_">_</div>
+                  </div>
+                  <div class="board__line__key" data-code="Equal" data-value="=">=
+                      <div class="board__line__key__sub" data-value="+">+</div>
+                  </div>
+                  <div class="board__line__key backspace" data-code="Backspace" data-value="Backspace">Backspace</div>
+              </div>
+              <div class="board__line">
+                  <div class="board__line__key tabulation" data-code="Tab" data-value="Tab">Tab</div>
+                  <div class="board__line__key" data-code="KeyQ" data-value="й">Й</div>
+                  <div class="board__line__key" data-code="KeyW" data-value="ц">Ц</div>
+                  <div class="board__line__key" data-code="KeyE" data-value="у">У</div>
+                  <div class="board__line__key" data-code="KeyR" data-value="к">К</div>
+                  <div class="board__line__key" data-code="KeyT" data-value="е">Е</div>
+                  <div class="board__line__key" data-code="KeyY" data-value="н">Н</div>
+                  <div class="board__line__key" data-code="KeyU" data-value="г">Г</div>
+                  <div class="board__line__key" data-code="KeyI" data-value="ш">Ш</div>
+                  <div class="board__line__key" data-code="KeyO" data-value="щ">Щ</div>
+                  <div class="board__line__key" data-code="KeyP" data-value="з">З</div>
+                  <div class="board__line__key" data-code="BracketLeft" data-value="х">Х</div>
+                  <div class="board__line__key" data-code="BracketRight" data-value="ъ">Ъ</div>
+                  <div class="board__line__key delete" data-code="Delete" data-value="Delete">Del</div>
+              </div>
+              <div class="board__line">
+                  <div class="board__line__key" id="caps-lock" data-code="CapsLock" data-value="CapsLock">Caps&nbsp;Lock</div>
+                  <div class="board__line__key" data-code="KeyA" data-value="ф">Ф</div>
+                  <div class="board__line__key" data-code="KeyS" data-value="ы">Ы</div>
+                  <div class="board__line__key" data-code="KeyD" data-value="в">В</div>
+                  <div class="board__line__key" data-code="KeyF" data-value="а">А</div>
+                  <div class="board__line__key" data-code="KeyG" data-value="п">П</div>
+                  <div class="board__line__key" data-code="KeyH" data-value="р">Р</div>
+                  <div class="board__line__key" data-code="KeyJ" data-value="о">О</div>
+                  <div class="board__line__key" data-code="KeyK" data-value="л">Л</div>
+                  <div class="board__line__key" data-code="KeyL" data-value="д">Д</div>
+                  <div class="board__line__key" data-code="Semicolon" data-value="ж">Ж</div>
+                  <div class="board__line__key" data-code="Quote" data-value="э">Э</div>
+                  <div class="board__line__key" data-code="Backslash" data-value="ё">Ё</div>
+                  <div class="board__line__key enter" data-code="Enter" data-value="Enter">&#8629;</div>
+              </div>
+              <div class="board__line">
+                  <div class="board__line__key shift" data-code="ShiftLeft" data-value="Shift">Shift</div>
+                  <div class="board__line__key" data-code="IntlBackslash" data-value="]">]
+                      <div class="board__line__key__sub" data-value="[">[</div>
+                  </div>
+                  <div class="board__line__key" data-code="KeyZ" data-value="я">Я</div>
+                  <div class="board__line__key" data-code="KeyX" data-value="ч">Ч</div>
+                  <div class="board__line__key" data-code="KeyC" data-value="с">С</div>
+                  <div class="board__line__key" data-code="KeyV" data-value="м">М</div>
+                  <div class="board__line__key" data-code="KeyB" data-value="и">И</div>
+                  <div class="board__line__key" data-code="KeyN" data-value="т">Т</div>
+                  <div class="board__line__key" data-code="KeyM" data-value="ь">Ь</div>
+                  <div class="board__line__key" data-code="Comma" data-value="б">Б</div>
+                  <div class="board__line__key" data-code="Period" data-value="ю">Ю</div>
+                  <div class="board__line__key" data-code="Slash" data-value="/">/
+                      <div class="board__line__key__sub" data-value="?">?</div>
+                  </div>
+                  <div class="board__line__key shift" data-code="ShiftRight" data-value="Shift">Shift</div>
+              </div>
+              <div class="board__line">
+                  <div class="board__line__key control" data-code="ControlLeft" data-value="Control">Ctrl</div>
+                  <div class="board__line__key alt" data-code="AltLeft" data-value="Alt">Alt</div>
+                  <div class="board__line__key meta" data-code="MetaLeft" data-value="Meta">Command</div>
+                  <div class="board__line__key space" data-code="Space" data-value=" "></div>
+                  <div class="board__line__key meta" data-code="MetaRight" data-value="Meta">Command</div>
+                  <div class="board__line__key alt" data-code="AltRight" data-value="Alt">Alt</div>
+                  <div class="board__line__key__arrow">
+                      <div class="board__line__key__arrow__start">
+                          <div class="board__line__key board__line__key__arrow__start__up" data-code="ArrowUp" data-value="ArrowUp">&#9650;</div>
+                      </div>
+                      <div class="board__line__key__arrow__end">
+                          <div class="board__line__key board__line__key__arrow__end__left" data-code="ArrowLeft" data-value="ArrowLeft">&#9668;</div>
+                          <div class="board__line__key board__line__key__arrow__end__down" data-code="ArrowDown" data-value="ArrowDown">&#9660;</div>
+                          <div class="board__line__key board__line__key__arrow__end__right" data-code="ArrowRight" data-value="ArrowRight">&#9658;</div>
+                      </div>
+                  </div>
+              </div>
+      `
+
+      const doc = document.querySelector('.body')
+      doc.innerHTML = ''
+      const wrap = document.createElement('div')
+      wrap.classList.add('wrapper')
+      //textarea
+      const divTextarea = document.createElement('div')
+      divTextarea.classList.add('textarea')
+      const textarea = document.createElement('textarea')
+      textarea.name = 'text'
+      textarea.id = 'text-area'
+      textarea.autofocus = true
+      divTextarea.appendChild(textarea)
+      //keyboard
+      const key = document.createElement('div')
+      key.classList.add('key')
+      const board = document.createElement('div')
+      board.classList.add('board')
+      if (document.cookie === 'lang=en') {
+        board.innerHTML = templateEn
+      } else if (document.cookie === 'lang=ru') {
+        board.innerHTML = templateRu
+      } else {
+        board.innerHTML = templateEn
+      }
+      key.appendChild(board)
+
+      wrap.appendChild(divTextarea)
+      wrap.appendChild(key)
+      doc.appendChild(wrap)
+      // doc.innerHTML = template
+      this.language = document.cookie
+      this.textArea = document.getElementById('text-area')
+
+      setTimeout(() => {
+        this.listener()
+      }, 500);
+    }
 }
 
 if (!document.cookie) document.cookie = 'lang=en'
@@ -466,8 +756,8 @@ if (document.cookie === 'lang=en') {
 } else {
   console.log('rus');
 }
-const keyboard = new Keyboard()
 document.addEventListener('DOMContentLoaded', () => {
-  keyboard.listener()
+  const keyboard = new Keyboard()
+  keyboard.render()
 })
 
