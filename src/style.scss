@@ -31,6 +31,7 @@ body {
   align-items: center;
   flex-direction: column;
   .textarea {
+    position: relative;
     width: $width-key;
     margin: 0 auto;
     max-width: 1400px;
@@ -40,15 +41,22 @@ body {
       height: 30vh;
       box-sizing: border-box;
     }
+    &__info {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      font-size: 1.5rem;
+      opacity: .4;
+    }
   }
   .key {
     font-size: 2.1rem;
     margin: 0 auto;
     width: $width-key;
-    height: 40vh;
+    height: 35vh;
     max-width: 1400px;
     .board {
-      height: 88%;
+      height: 100%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
