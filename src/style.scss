@@ -9,7 +9,7 @@ $key-size: 6vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 5px;
   border: #000 solid 2px;
   background-color: rgb(38, 38, 38);
   height: 3vh;
@@ -24,7 +24,7 @@ body {
 }
 .wrapper {
   height: 100vh;
-  width: 82vw;
+  width: 60vw;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -36,7 +36,7 @@ body {
     margin: 0 auto;
     max-width: 1400px;
     textarea {
-      font-size: 3rem;
+      font-size: 2rem;
       width: 100%;
       height: 30vh;
       box-sizing: border-box;
@@ -45,12 +45,12 @@ body {
       position: absolute;
       bottom: 5px;
       left: 10px;
-      font-size: 1.5rem;
+      font-size: 1rem;
       opacity: .4;
     }
   }
   .key {
-    font-size: 2.1rem;
+    font-size: 1.2rem;
     margin: 0 auto;
     width: $width-key;
     height: 35vh;
@@ -67,9 +67,9 @@ body {
         box-sizing: border-box;
         justify-content: space-around;
         height: calc(100%/5);
-        padding-left: 5px;
-        padding-right: 5px;
-        gap: 10px;
+        padding-left: 3px;
+        padding-right: 3px;
+        gap: 5px;
         &__key {
           cursor: pointer;
           position: relative;
@@ -80,17 +80,17 @@ body {
           width: $key-size;
           background-color: rgb(38, 38, 38);
           color: #FFF;
-          border-radius: 10px;
+          border-radius: 5px;
           border: #000 solid 2px;
           &__sub {
             position: absolute;
             left: 5px;
             top: 2px;
             color: #FFF;
-            font-size: 1.4rem;
+            font-size: 0.7rem;
           }
           &__arrow {
-            font-size: 1rem;
+            font-size: 0.7rem;
             color: #FFF;
             width: auto;
             display: flex;
@@ -131,12 +131,13 @@ body {
         }
         &__key.backspace {
           flex-grow: 1;
-          min-width: 145px;
-          font-size: 1.8rem;
+          min-width: 100px;
+          font-size: 1rem;
         }
         &__key.tabulation {
-          flex-grow: 1;
-          font-size: 1.8rem;
+          min-width: 60px;
+          flex-grow: 0;
+          font-size: 1rem;
         }
         &__key.enter {
           flex-grow: 3;
@@ -145,29 +146,30 @@ body {
           flex-grow: 10;
         }
         &__key.shift {
-          flex-grow: 1;
-          font-size: 1.8rem;
+          flex-grow: 0;
+          min-width: 90px;
+          font-size: 1rem;
         }
         &__key.control {
-          // flex-grow: 1;
-          font-size: 1.8rem;
+          font-size: 1rem;
         }
         &__key.delete {
-          font-size: 1.8rem;
+          font-size: 1rem;
+          flex-grow: 1;
         }
         &__key.meta {
-          flex-grow: 1;
-          font-size: 1.8rem;
+          flex-grow: 1.5;
+          font-size: 1rem;
         }
         &__key.alt {
-          font-size: 1.8rem;
+          font-size: 1rem;
         }
       }
     }
   }
 }
 #caps-lock {
-  min-width: 140px;
-  font-size: 1.8rem;
+  min-width: 100px;
+  font-size: 1rem;
   flex-grow: 1;
 }
