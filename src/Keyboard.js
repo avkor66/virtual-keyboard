@@ -536,8 +536,12 @@ export default class Keyboard {
       document.querySelectorAll('.board__line__key').forEach(item => {
         if (item.dataset.code === event.code) {
           item.classList.add('press')
-          if (item.children.length) {
-            this.elementSwitch({key:item.childNodes[1].innerText})
+          if(this.shiftClick) {
+            if (item.children.length) {
+              this.elementSwitch({key:item.childNodes[1].innerText})
+            } else {
+              this.elementSwitch(item.dataset)
+            }
           } else {
             this.elementSwitch(item.dataset)
           }
